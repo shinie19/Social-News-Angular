@@ -19,9 +19,9 @@ export class VoteButtonComponent implements OnInit {
   votePayload!: VotePayload;
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
-  upvoteColor: string | undefined;
-  downvoteColor: string | undefined;
-  isLoggedIn: boolean | undefined;
+  upvoteColor!: string;
+  downvoteColor!: string;
+  isLoggedIn!: boolean;
 
   constructor(
     private voteService: VoteService,
@@ -29,10 +29,10 @@ export class VoteButtonComponent implements OnInit {
     private postService: PostService,
     private toastr: ToastrService
   ) {
-    // this.votePayload = {
-    //   voteType!: undefined,
-    //   postId!: undefined,
-    // };
+    this.votePayload = {
+      voteType: undefined,
+      postId: undefined,
+    };
     this.authService.loggedIn.subscribe(
       (data: boolean) => (this.isLoggedIn = data)
     );
@@ -61,7 +61,10 @@ export class VoteButtonComponent implements OnInit {
         this.updateVoteDetails();
       },
       (error) => {
-        this.toastr.error(error.error.message);
+        this.toastr.error(
+          'You have just ' +
+            (this.votePayload.voteType == 0 ? 'UPVOTE !' : 'DOWNVOTE !')
+        );
         throwError(error);
       }
     );
