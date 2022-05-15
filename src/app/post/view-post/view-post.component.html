@@ -25,16 +25,22 @@
               <div class="form-group">
                 <textarea class="form-control" [formControlName]="'text'" placeholder="Your Thoughts?"></textarea>
               </div>
-              <button type="submit" class="login float-right">Comment</button>
+              <button type="submit" class="login float-right"
+                style="margin-top: 15px; margin-bottom: 15px">Comment</button>
             </form>
           </div>
-          <div style="margin-top: 60px;" *ngFor="let comment of comments">
+          <div style="margin-top: 5px;" *ngFor="let comment of comments">
             <div class="comment">
-              <div class="username">
-                <a routerLink="/user/comment.username">{{comment.username}}</a>
-              </div>
-              <div>
-                <p>{{comment.duration}}</p>
+              <div class="user-info">
+                <div class="username">
+                  <span>
+                    <fa-icon [icon]="faUser" style="margin-right: 8px"></fa-icon><a href=""
+                      style="text-decoration: none">{{comment.userName}}</a>
+                  </span>
+                </div>
+                <div>
+                  <p>{{comment.duration}}</p>
+                </div>
               </div>
               <b>{{comment.text}}</b>
             </div>

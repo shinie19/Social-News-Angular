@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'src/app/shared/post.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostModel } from 'src/app/shared/post-model';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { throwError } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommentPayload } from 'src/app/comment/comment.payload';
 import { CommentService } from 'src/app/comment/comment.service';
+import { PostModel } from 'src/app/shared/post-model';
+import { PostService } from 'src/app/shared/post.service';
 
 @Component({
   selector: 'app-view-post',
@@ -18,6 +19,8 @@ export class ViewPostComponent implements OnInit {
   commentForm: FormGroup;
   commentPayload: CommentPayload;
   comments!: CommentPayload[];
+
+  faUser = faUser;
 
   constructor(
     private postService: PostService,
@@ -58,6 +61,7 @@ export class ViewPostComponent implements OnInit {
     this.postService.getPost(this.postId).subscribe(
       (data) => {
         this.post = data;
+        console.log(this.post);
       },
       (error) => {
         throwError(error);
@@ -69,6 +73,7 @@ export class ViewPostComponent implements OnInit {
     this.commentService.getAllCommentsForPost(this.postId).subscribe(
       (data) => {
         this.comments = data;
+        console.log(this.comments);
       },
       (error) => {
         throwError(error);
